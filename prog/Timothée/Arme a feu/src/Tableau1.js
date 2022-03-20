@@ -20,6 +20,8 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
 
+        this.cdTir = 0
+
         // Création du personnage armé
         this.persoA = this.physics.add.sprite(500, 0, 'circleG').setOrigin(0, 0);
         this.persoA.setDisplaySize(30,30);
@@ -27,12 +29,8 @@ class Tableau1 extends Phaser.Scene {
         this.persoA.setVisible(true);
 
 
-        //Balle
-        this.Mballe = new Balle(this)
-
-
         // Création d'un boss a tuer
-        this.boss = this.physics.add.sprite(150, 0,'balle').setOrigin(0, 0);
+        this.boss = this.physics.add.sprite(150, 0,'boss').setOrigin(0, 0);
         this.boss.setDisplaySize(50,50);
         this.boss.body.setAllowGravity(true);
         this.boss.setImmovable(true);
@@ -59,7 +57,6 @@ class Tableau1 extends Phaser.Scene {
 
         // Creation des collision
 
-
         this.physics.add.collider(this.persoA, platforms);
 
         this.physics.add.collider(this.boss, platforms);
@@ -77,17 +74,10 @@ class Tableau1 extends Phaser.Scene {
         }
     }
 
-    tir(){
-        console.log("pan pan")
+    tir(dirX,dirY){
+        this.balle = new Balle(this);
     }
 
-    balleAucentre(){
-        this.Mballe.balle.x = this.largeur/2
-        this.Mballe.balle.y = this.hauteur/2
-        this.Mballe.balle.setVelocityX(0)
-        this.Mballe.balle.setVelocityY(0)
-        this.Mballe.balle.setVelocityX(Math.random()>0.5?-200:200)
-    }
 
     initKeyboard() {
         let me = this;
@@ -107,6 +97,7 @@ class Tableau1 extends Phaser.Scene {
                     me.persoA.setVelocityX(0);
 
                     break;
+
             }
         })
         this.input.keyboard.on('keydown', function (kevent) {
@@ -128,18 +119,70 @@ class Tableau1 extends Phaser.Scene {
 
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR:
 
-                    tir();
+
+                    me.tir(-500,0);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT:
+
+
+                    me.tir(0,-500);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN:
+
+
+                    me.tir(-250,-250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE:
+
+
+                    me.tir(250,-250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SIX:
+
+
+                    me.tir(500,0);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
+
+
+                    me.tir(250,250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
+
+
+                    me.tir(0,500);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
+
+
+                    me.tir(-250,250);
 
                     break;
             }
         })
     }
 
+
     update(){
 
         this.initKeyboard();
-    }
 
+        this.projectiles = this.add.group();
+
+        for(let i = 0 ; i < this.projectiles.getChildren().length;i++){
+            this.balles = this.projectiles.getChildren()[i];
+            this.balles.update();
+            console.log("ehg")
+        }
+
+    }
 
     // fin du programme
 }

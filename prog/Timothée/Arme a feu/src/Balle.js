@@ -1,11 +1,25 @@
-class Balle  {
-    constructor(Tableau1){
-        this.scene= Tableau1
-        this.balle = this.scene.physics.add.sprite(0, 0, 'balle').setOrigin(0, 0);
-        this.balle.setDisplaySize(5,5);
-        this.balle.body.setBounce(1.1,1.1);
-        this.balle.body.setMaxVelocityX(800);
-        this.balle.body.setMaxVelocityY(700);
-        this.balle.body.setAllowGravity(false)
+class Balle extends Phaser.GameObjects.Sprite{
+    constructor(scene) {
+
+        let x = scene.persoA.x;
+        let y = scene.persoA.y;
+
+        super(scene,x,y,"balle");
+        scene.projectiles.add(this);
+
+        scene.add.existing(this);
+
+        scene.physics.world.enableBody(this)
+        this.body.velocity.y = -250;
+        this.setDisplaySize(10,10);
+        this.body.setAllowGravity(false);
     }
+
+    update(){
+        if(this.y < 50 ){
+            this.destroy();
+            console.log("kog")
+        }
+    }
+
 }
