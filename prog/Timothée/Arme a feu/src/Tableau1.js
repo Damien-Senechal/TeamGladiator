@@ -20,7 +20,7 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
 
-        this.cdTir = 0
+        this.chargeur = 10;
 
         // Création du personnage armé
         this.persoA = this.physics.add.sprite(500, 0, 'circleG').setOrigin(0, 0);
@@ -61,6 +61,9 @@ class Tableau1 extends Phaser.Scene {
 
         this.physics.add.collider(this.boss, platforms);
 
+
+        this.initKeyboard();
+
     }
 
     // fonction pour faire regarder s'il y a un overlaps donc deux objets qui se touche pour l'utilisé plus facilement.
@@ -74,7 +77,8 @@ class Tableau1 extends Phaser.Scene {
         }
     }
 
-    tir(dirX,dirY){
+    tir(){
+        this.chargeur -= 1;
         this.balle = new Balle(this);
     }
 
@@ -119,50 +123,97 @@ class Tableau1 extends Phaser.Scene {
 
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(-500, 0);
 
-                    me.tir(-500,0);
+                        console.log(me.chargeur)
+                    }
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT:
 
-
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
                     me.tir(0,-500);
+
+                        console.log(me.chargeur)
+                    }
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN:
 
-
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
                     me.tir(-250,-250);
+
+                    console.log(me.chargeur)
+                    }
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(250,-250);
+                        console.log(me.chargeur)
+                    }
 
-                    me.tir(250,-250);
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SIX:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(500,0);
+                        console.log(me.chargeur)
+                    }
 
-                    me.tir(500,0);
 
-                    break;
+                        break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(250,250);
+                        console.log(me.chargeur)
+                    }
 
-                    me.tir(250,250);
 
-                    break;
+                        break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(0,500);
+                        console.log(me.chargeur)
+                    }
 
-                    me.tir(0,500);
 
-                    break;
+                        break;
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
 
+                    if(me.chargeur === 0){
+                        console.log("plus de balle")
+                    }else {
+                        me.tir(-250,250);
+                        console.log(me.chargeur)
+                    }
 
-                    me.tir(-250,250);
+
+                        break;
+
+                case Phaser.Input.Keyboard.KeyCodes.R:
+
+                    console.log("rechargement")
+                    me.chargeur = 10
 
                     break;
             }
@@ -171,8 +222,6 @@ class Tableau1 extends Phaser.Scene {
 
 
     update(){
-
-        this.initKeyboard();
 
         this.projectiles = this.add.group();
 
