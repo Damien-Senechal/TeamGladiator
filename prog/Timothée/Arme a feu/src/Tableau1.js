@@ -5,6 +5,7 @@ class Tableau1 extends Phaser.Scene {
         // Je preload les images autres que Tiled
 
         this.load.image('circleG','assets/circleG.png');
+        this.load.image('circleB','assets/circleB.png');
 
 
         this.load.image('balle','assets/square.png');
@@ -19,7 +20,7 @@ class Tableau1 extends Phaser.Scene {
 
 
     create() {
-
+        this.NbBalle = 40;
         this.chargeur = 10;
 
         // Création du personnage armé
@@ -34,6 +35,13 @@ class Tableau1 extends Phaser.Scene {
         this.boss.setDisplaySize(50,50);
         this.boss.body.setAllowGravity(true);
         this.boss.setImmovable(true);
+
+        // Création d'une caisse de munition
+        this.munition = this.physics.add.sprite(450, 0,'circleB').setOrigin(0, 0);
+        this.munition.setDisplaySize(10,10);
+        this.munition.body.setAllowGravity(true);
+        this.munition.setImmovable(true);
+
 
 
 
@@ -58,7 +66,7 @@ class Tableau1 extends Phaser.Scene {
         // Creation des collision
 
         this.physics.add.collider(this.persoA, platforms);
-
+        this.physics.add.collider(this.munition, platforms);
         this.physics.add.collider(this.boss, platforms);
 
 
@@ -115,7 +123,17 @@ class Tableau1 extends Phaser.Scene {
 
                 case Phaser.Input.Keyboard.KeyCodes.D:
 
-                        me.persoA.setVelocityX(300);
+                    me.persoA.setVelocityX(300);
+
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.E:
+
+                    if(me.checkCollider(me.persoA.x,me.persoA.y,30,30,me.munition.x,me.munition.y,10,10) === true){
+                        me.munition.setVisible(false);
+                        me.munition.body.setEnable(false);
+                        me.NbBalle += 20;
+                    }
 
                     break;
 
@@ -169,7 +187,7 @@ class Tableau1 extends Phaser.Scene {
 
                     if(me.chargeur === 0){
                         console.log("plus de balle")
-                    }else {
+                    }else{
                         me.tir(500,0);
                         console.log(me.chargeur)
                     }
@@ -212,9 +230,17 @@ class Tableau1 extends Phaser.Scene {
 
                 case Phaser.Input.Keyboard.KeyCodes.R:
 
-                    console.log("rechargement")
-                    me.chargeur = 10
 
+
+                    if(me.NbBalle > 10 && me.chargeur === 0 ) {
+                        me.chargeur = 10
+                        me.NbBalle -= 10
+                        console.log("rechargement")
+                    }else if (me.chargeur !== 0){
+                        console.log("j'ai encore des balles")
+                    }else{
+                        console.log("plus rien du tout")
+                    }
                     break;
             }
         })
