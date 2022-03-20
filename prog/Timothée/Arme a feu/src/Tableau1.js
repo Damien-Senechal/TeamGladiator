@@ -20,6 +20,8 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
 
+        this.ennemis = this.add.container(0, 0);
+
         // Création du personnage armé
         this.persoA = this.physics.add.sprite(500, 0, 'circleG').setOrigin(0, 0);
         this.persoA.setDisplaySize(30,30);
@@ -36,6 +38,7 @@ class Tableau1 extends Phaser.Scene {
         this.boss.setDisplaySize(50,50);
         this.boss.body.setAllowGravity(true);
         this.boss.setImmovable(true);
+        this.ennemis.add(this.boss);
 
 
 
@@ -59,6 +62,11 @@ class Tableau1 extends Phaser.Scene {
 
         // Creation des collision
 
+        this.physics.add.collider(this.ennemis, this.target, function (){
+            console.log('touche');
+            me.disparait(me.target);
+        })
+
 
         this.physics.add.collider(this.persoA, platforms);
 
@@ -77,16 +85,13 @@ class Tableau1 extends Phaser.Scene {
         }
     }
 
-    tir(){
-        console.log("pan pan")
-    }
 
-    balleAucentre(){
-        this.Mballe.balle.x = this.largeur/2
-        this.Mballe.balle.y = this.hauteur/2
-        this.Mballe.balle.setVelocityX(0)
-        this.Mballe.balle.setVelocityY(0)
-        this.Mballe.balle.setVelocityX(Math.random()>0.5?-200:200)
+    tir(dirX,dirY){
+        this.Mballe.balle.x = this.persoA.x+10
+        this.Mballe.balle.y = this.persoA.y+10
+        this.Mballe.balle.setVelocityX(dirX)
+        this.Mballe.balle.setVelocityY(dirY)
+
     }
 
     initKeyboard() {
@@ -128,18 +133,68 @@ class Tableau1 extends Phaser.Scene {
 
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR:
 
-                    tir();
+
+                    me.tir(-500,0);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT:
+
+
+                    me.tir(0,-500);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN:
+
+
+                    me.tir(-250,-250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE:
+
+
+                    me.tir(250,-250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_SIX:
+
+
+                    me.tir(500,0);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
+
+
+                    me.tir(250,250);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
+
+
+                    me.tir(0,500);
+
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
+
+
+                    me.tir(-250,250);
 
                     break;
             }
         })
     }
 
+
     update(){
 
         this.initKeyboard();
-    }
 
+        if(this.checkCollider(this.Mballe.balle.x,this.Mballe.balle.y,10,10,this.boss.x,this.boss.y,50,50) === true){
+            this.boss.body.setEnable(false);
+            this.boss.setVisible(false);
+        }
+
+
+    }
 
     // fin du programme
 }
