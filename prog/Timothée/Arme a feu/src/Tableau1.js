@@ -20,6 +20,8 @@ class Tableau1 extends Phaser.Scene {
 
 
     create() {
+        this.dirx = 0;
+        this.diry = 0;
         this.NbBalle = 40;
         this.chargeur = 10;
 
@@ -69,9 +71,9 @@ class Tableau1 extends Phaser.Scene {
         this.physics.add.collider(this.munition, platforms);
         this.physics.add.collider(this.boss, platforms);
 
-
         this.initKeyboard();
 
+        this.projectiles = this.add.group();
     }
 
     // fonction pour faire regarder s'il y a un overlaps donc deux objets qui se touche pour l'utilisé plus facilement.
@@ -85,9 +87,18 @@ class Tableau1 extends Phaser.Scene {
         }
     }
 
-    tir(){
+    tir(){let me = this;
         this.chargeur -= 1;
         this.balle = new Balle(this);
+
+        this.physics.add.collider(this.boss, this.balle, function (){
+            console.log("ok")
+            me.boss.body.setEnable(false);
+            me.boss.setVisible(false);
+
+            me.balle.body.setEnable(false);
+            me.balle.setVisible(false);
+        })
     }
 
 
@@ -137,14 +148,16 @@ class Tableau1 extends Phaser.Scene {
 
                     break;
 
-                    // les tires dans chaques directions
+                    // les tires dans chaque directions
 
                 case Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR:
 
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                        me.tir(-500, 0);
+                        me.diry = 0
+                        me.dirx = -500
+                        me.tir();
 
                         console.log(me.chargeur)
                     }
@@ -155,7 +168,10 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                    me.tir(0,-500);
+
+                        me.diry = -500
+                        me.dirx = 0
+                        me.tir(0,-500);
 
                         console.log(me.chargeur)
                     }
@@ -166,7 +182,10 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                    me.tir(-250,-250);
+
+                        me.diry = -250
+                        me.dirx = -250
+                        me.tir();
 
                     console.log(me.chargeur)
                     }
@@ -177,7 +196,11 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                        me.tir(250,-250);
+
+                        me.diry = -250
+                        me.dirx = 250
+                        me.tir();
+
                         console.log(me.chargeur)
                     }
 
@@ -188,7 +211,11 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else{
-                        me.tir(500,0);
+
+                        me.diry = 0
+                        me.dirx = 500
+                        me.tir();
+
                         console.log(me.chargeur)
                     }
 
@@ -199,7 +226,10 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                        me.tir(250,250);
+
+                        me.diry = 250
+                        me.dirx = 250
+                        me.tir();
                         console.log(me.chargeur)
                     }
 
@@ -210,7 +240,10 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                        me.tir(0,500);
+
+                        me.diry = 500
+                        me.dirx = 0
+                        me.tir();
                         console.log(me.chargeur)
                     }
 
@@ -221,7 +254,10 @@ class Tableau1 extends Phaser.Scene {
                     if(me.chargeur === 0){
                         console.log("plus de balle")
                     }else {
-                        me.tir(-250,250);
+
+                        me.diry = 250
+                        me.dirx = -250
+                        me.tir();
                         console.log(me.chargeur)
                     }
 
@@ -249,12 +285,9 @@ class Tableau1 extends Phaser.Scene {
 
     update(){
 
-        this.projectiles = this.add.group();
-
-        for(let i = 0 ; i < this.projectiles.getChildren().length;i++){
-            this.balles = this.projectiles.getChildren()[i];
-            this.balles.update();
-            console.log("ehg")
+        for(var i = 0; i < this.projectiles.getChildren().length; i++){
+            var tir = this.projectiles.getChildren()[i];
+            tir.update();
         }
 
     }
