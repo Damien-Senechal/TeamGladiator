@@ -1,6 +1,7 @@
 class Tableau1 extends Phaser.Scene {
 
 
+
     preload() {
         // Je preload les images autres que Tiled
         this.load.image('circle','assets/circle.png');
@@ -22,6 +23,8 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
         let me=this;
+
+
 
         // Création du personnage de base
         this.perso = this.physics.add.sprite(500, 0, 'circle').setOrigin(0, 0);
@@ -67,7 +70,7 @@ class Tableau1 extends Phaser.Scene {
 
         this.physics.add.collider(this.perso, platforms);
 
-
+        //Creation des collision entre le shield et le la balle et detruit si toucher
         this.physics.add.collider(this.shield, this.bullet, function () {
             console.log('touche');
             me.bullet.destroy(true)
@@ -78,27 +81,24 @@ class Tableau1 extends Phaser.Scene {
 
 
     update(){
+        // on tp constament les shield au joueur
         this.shield.x = this.perso.x
         this.shield.y = this.perso.y
     }
     initKeyboard() {
         let me = this;
-
+        let gauche = true;
         this.input.keyboard.on('keyup', function (kevent) {
             switch (kevent.keyCode) {
 
                 case Phaser.Input.Keyboard.KeyCodes.Q:
 
                     me.perso.setVelocityX(0);
-
                     break;
-
                 case Phaser.Input.Keyboard.KeyCodes.D:
 
                     me.perso.setVelocityX(0);
-
                     break;
-
                 case Phaser.Input.Keyboard.KeyCodes.F:
 
                     me.shield.setVisible(false)
@@ -110,29 +110,31 @@ class Tableau1 extends Phaser.Scene {
             switch (kevent.keyCode) {
 
                 case Phaser.Input.Keyboard.KeyCodes.Q:
-
-
+                        gauche = true;
                         me.perso.setVelocityX(-300);
 
                     break;
 
                 case Phaser.Input.Keyboard.KeyCodes.D:
-
+                        gauche = false;
                         me.perso.setVelocityX(300);
 
-
                     break;
 
+                    //Quand on appuie ça fait apparaitre le shield est active son collider
                 case Phaser.Input.Keyboard.KeyCodes.F:
-
+                 if (gauche == true ){
+                     me.shield.setFlipX(true);
                      me.shield.setVisible(true);
                      me.shield.body.setEnable(true);
+                 }
+                 else{
+
+                     me.shield.setFlipX(false)
+                     me.shield.setVisible(true);
+                     me.shield.body.setEnable(true);
+                 }
                     break;
-
-
-
-
-
             }
         })
     }
