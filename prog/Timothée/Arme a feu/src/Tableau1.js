@@ -20,7 +20,7 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
 
-        this.ennemis = this.add.container(0, 0);
+        this.cdTir = 0
 
         // Création du personnage armé
         this.persoA = this.physics.add.sprite(500, 0, 'circleG').setOrigin(0, 0);
@@ -29,16 +29,11 @@ class Tableau1 extends Phaser.Scene {
         this.persoA.setVisible(true);
 
 
-        //Balle
-        this.Mballe = new Balle(this)
-
-
         // Création d'un boss a tuer
-        this.boss = this.physics.add.sprite(150, 0,'balle').setOrigin(0, 0);
+        this.boss = this.physics.add.sprite(150, 0,'boss').setOrigin(0, 0);
         this.boss.setDisplaySize(50,50);
         this.boss.body.setAllowGravity(true);
         this.boss.setImmovable(true);
-        this.ennemis.add(this.boss);
 
 
 
@@ -62,12 +57,6 @@ class Tableau1 extends Phaser.Scene {
 
         // Creation des collision
 
-        this.physics.add.collider(this.ennemis, this.target, function (){
-            console.log('touche');
-            me.disparait(me.target);
-        })
-
-
         this.physics.add.collider(this.persoA, platforms);
 
         this.physics.add.collider(this.boss, platforms);
@@ -85,14 +74,10 @@ class Tableau1 extends Phaser.Scene {
         }
     }
 
-
     tir(dirX,dirY){
-        this.Mballe.balle.x = this.persoA.x+10
-        this.Mballe.balle.y = this.persoA.y+10
-        this.Mballe.balle.setVelocityX(dirX)
-        this.Mballe.balle.setVelocityY(dirY)
-
+        this.balle = new Balle(this);
     }
+
 
     initKeyboard() {
         let me = this;
@@ -112,6 +97,7 @@ class Tableau1 extends Phaser.Scene {
                     me.persoA.setVelocityX(0);
 
                     break;
+
             }
         })
         this.input.keyboard.on('keydown', function (kevent) {
@@ -188,11 +174,13 @@ class Tableau1 extends Phaser.Scene {
 
         this.initKeyboard();
 
-        if(this.checkCollider(this.Mballe.balle.x,this.Mballe.balle.y,10,10,this.boss.x,this.boss.y,50,50) === true){
-            this.boss.body.setEnable(false);
-            this.boss.setVisible(false);
-        }
+        this.projectiles = this.add.group();
 
+        for(let i = 0 ; i < this.projectiles.getChildren().length;i++){
+            this.balles = this.projectiles.getChildren()[i];
+            this.balles.update();
+            console.log("ehg")
+        }
 
     }
 
