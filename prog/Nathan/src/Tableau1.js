@@ -80,6 +80,7 @@ class Tableau1 extends Phaser.Scene {
             console.log('touchePerso');
             me.bullet.destroy(true);
             me.perso.destroy(true);
+            me.shield.destroy(true);
         })
 
         this.initKeyboard();
@@ -90,12 +91,14 @@ class Tableau1 extends Phaser.Scene {
         // on tp constament les shield au joueur
 
         if (this.gauche == true ){
-            this.shield.x = this.perso.x -2;
+            this.shield.setFlipX(true);
+            this.shield.x = this.perso.x -10    ;
             this.shield.y = this.perso.y
         }
 
         else {
-            this.shield.x = this.perso.x + 10 ;
+            this.shield.setFlipX(false);
+            this.shield.x = this.perso.x + 15 ;
             this.shield.y = this.perso.y
         }
 
@@ -139,13 +142,10 @@ class Tableau1 extends Phaser.Scene {
                     //Quand on appuie ça fait apparaitre le shield est active son collider
                 case Phaser.Input.Keyboard.KeyCodes.F:
                  if (me.gauche == true ){
-                     me.shield.setFlipX(true);
                      me.shield.setVisible(true);
                      me.shield.body.setEnable(true);
                  }
                  else{
-                     me.shield.x += 10;
-                     me.shield.setFlipX(false)
                      me.shield.setVisible(true);
                      me.shield.body.setEnable(true);
                  }
