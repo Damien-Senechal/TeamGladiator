@@ -23,7 +23,7 @@ class Tableau1 extends Phaser.Scene {
 
     create() {
         let me=this;
-
+        this.gauche = true;
 
 
         // Création du personnage de base
@@ -76,18 +76,33 @@ class Tableau1 extends Phaser.Scene {
             me.bullet.destroy(true)
         })
 
+        this.physics.add.collider(this.bullet, this.perso, function () {
+            console.log('touchePerso');
+            me.bullet.destroy(true);
+            me.perso.destroy(true);
+        })
+
         this.initKeyboard();
     }
 
 
     update(){
         // on tp constament les shield au joueur
-        this.shield.x = this.perso.x
-        this.shield.y = this.perso.y
+
+        if (this.gauche == true ){
+            this.shield.x = this.perso.x -2;
+            this.shield.y = this.perso.y
+        }
+
+        else {
+            this.shield.x = this.perso.x + 10 ;
+            this.shield.y = this.perso.y
+        }
+
     }
     initKeyboard() {
         let me = this;
-        let gauche = true;
+
         this.input.keyboard.on('keyup', function (kevent) {
             switch (kevent.keyCode) {
 
@@ -110,26 +125,26 @@ class Tableau1 extends Phaser.Scene {
             switch (kevent.keyCode) {
 
                 case Phaser.Input.Keyboard.KeyCodes.Q:
-                        gauche = true;
+                        me.gauche = true;
                         me.perso.setVelocityX(-300);
 
                     break;
 
                 case Phaser.Input.Keyboard.KeyCodes.D:
-                        gauche = false;
+                        me.gauche = false;
                         me.perso.setVelocityX(300);
 
                     break;
 
                     //Quand on appuie ça fait apparaitre le shield est active son collider
                 case Phaser.Input.Keyboard.KeyCodes.F:
-                 if (gauche == true ){
+                 if (me.gauche == true ){
                      me.shield.setFlipX(true);
                      me.shield.setVisible(true);
                      me.shield.body.setEnable(true);
                  }
                  else{
-
+                     me.shield.x += 10;
                      me.shield.setFlipX(false)
                      me.shield.setVisible(true);
                      me.shield.body.setEnable(true);
