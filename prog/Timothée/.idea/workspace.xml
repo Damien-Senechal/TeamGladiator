@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c52a6b-c02f-46a3-ad52-0afaae86d8b3" name="Changes" comment="Ajout d'une deuxieme armes" />
+    <list default="true" id="e9c52a6b-c02f-46a3-ad52-0afaae86d8b3" name="Changes" comment="Ajout d'une deuxieme armes">
+      <change afterPath="$PROJECT_DIR$/Pour Hugo en mode pas insane/circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pour Hugo en mode pas insane/square.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arme a feu/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/Arme a feu/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arme a feu/assets/circle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arme a feu/assets/square.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arme a feu/src/Tableau1.js" beforeDir="false" afterPath="$PROJECT_DIR$/Arme a feu/src/Tableau1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arme a feu/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Arme a feu/src/main.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +48,8 @@
       <workItem from="1646662602137" duration="32000" />
       <workItem from="1647791699794" duration="4350000" />
       <workItem from="1647796485865" duration="337000" />
+      <workItem from="1648232019656" duration="3320000" />
+      <workItem from="1648298971911" duration="696000" />
     </task>
     <task id="LOCAL-00001" summary="Rajout d'une map">
       <created>1647794514741</created>
