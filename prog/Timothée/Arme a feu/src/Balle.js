@@ -21,6 +21,13 @@ class Balle extends Phaser.GameObjects.Sprite{
 
         this.scene.physics.moveToObject(this, this.scene.target, 500);
 
+        this.scene.physics.add.collider(this, boss, function () {
+            console.log('touchePerso');
+            me.destroy(true);
+            boss.setVisible(false);
+
+        })
+
     }
 
     update(){
