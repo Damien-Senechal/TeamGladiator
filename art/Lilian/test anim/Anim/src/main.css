@@ -1,0 +1,55 @@
+body{
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    background-color: #000000;
+    text-align: center;
+}
+a{
+    color: #dadada;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 1s;
+}
+a:hover{
+    color: #ff0000;
+    text-decoration: underline;
+}
+a:visited{
+    color: #880000;
+}
+#game{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+
+}
+canvas{
+    outline: 1px solid #333;
+}
+
+#scores{
+    color: #ffffff;
+    font-size : 5vw;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.score{
+    font-family: Bradley Hand,cursive,Arial, sans-serif;
+    color: rgba(0, 197, 0, 0.78)
+
+}
+.name{
+    font-family: Bradley Hand,cursive,Arial, sans-serif;
+    color: #824b0f;
+    font-size: 3vw;
+}
+
+#scores >* {
+    margin: 1vw;
+}
