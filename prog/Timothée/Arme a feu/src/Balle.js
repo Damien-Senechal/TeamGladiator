@@ -32,6 +32,8 @@ class Balle extends Phaser.GameObjects.Sprite{
 
     update(){
 
+        console.log("la balle update")
+
         if(this.y < 0 ){
             this.destroy();
         }
